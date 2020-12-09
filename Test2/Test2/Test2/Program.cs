@@ -25,14 +25,16 @@ namespace Test2
                 GetCoin().GetAwaiter().GetResult();
                 if (coin != null)
                 {
+                    Console.WriteLine($"Iniciando o processo da Moeda: {coin.Moeda} para o período de data {coin.DataInicio} até {coin.DataFim}");
                     Test2Controller controller = new Test2Controller();
                     var coinList = controller.GetListCoins(coin);
                     coinList = controller.GetQuotationCode(coinList);
                     coinList = controller.GetAllQuotationValue(coinList);
                     controller.GenerateFile(coinList);
-                }
+                } else Console.WriteLine("Não foram encontrados itens a serem processados");
                 stopWatch.Stop();
-                Console.WriteLine($"Tempo total de processamento do ciclo: {stopWatch.Elapsed.Seconds},{stopWatch.Elapsed.Milliseconds} segundos. \r\n");
+                double tempoTotal = (stopWatch.Elapsed.Minutes / 60) + stopWatch.Elapsed.Seconds;
+                Console.WriteLine($"Tempo total de processamento do ciclo: {tempoTotal}.{stopWatch.Elapsed.Milliseconds} segundos. \r\n");
                 Thread.Sleep(120000);
             }
         }

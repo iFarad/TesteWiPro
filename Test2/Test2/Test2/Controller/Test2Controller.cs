@@ -1,5 +1,4 @@
-﻿using CsvHelper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,7 +35,7 @@ namespace Test2.Controller
 
                     foreach (var coin in dadosMoeda)
                     {
-                        if (apiCoin.Moeda == coin.Moeda /*|| dateChecker(apiCoin.DataInicio, apiCoin.DataFim, coin.DataCotacao)*/)
+                        if (dateChecker(apiCoin.DataInicio, apiCoin.DataFim, coin.DataCotacao))
                         {
                             coinList.Add(coin);
                         }
@@ -140,6 +139,8 @@ namespace Test2.Controller
                     }
                 }
 
+                Console.WriteLine($"Arquivo Resultado_{ DateTime.Now.ToString("yyyyMMdd_hhmmss")}.csv gerado e alocado na pasta Repository.");
+
             }
             catch (Exception e)
             {
@@ -153,7 +154,14 @@ namespace Test2.Controller
             DateTime endDate = DateTime.Parse(dataFim);
             DateTime quotationDate = DateTime.Parse(dataCotacao);
 
-            if (quotationDate >= startDate && quotationDate < endDate)
+            if(startDate > endDate)
+            {
+                startDate = DateTime.Parse(dataFim);
+                endDate = DateTime.Parse(dataInicio);
+            }
+
+
+            if (quotationDate >= startDate && quotationDate <= endDate)
             {
                 return true;
             }

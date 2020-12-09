@@ -35,6 +35,7 @@ namespace Test.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(moeda)) throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Por favor insira o código da moeda."));
                 coin = new Coins(moeda, data_inicio, data_fim);
                 CoinsRepository.CoinsList.Add(coin);
             }

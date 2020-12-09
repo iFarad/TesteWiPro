@@ -1,0 +1,13 @@
+SELECT P.idStatus [IDSTATUS], S.dsStatus AS [DESCSTATUS] 
+FROM tb_Processo AS P, tb_Status AS S  
+WHERE P.idStatus = S.idStatus
+
+SELECT 
+max(dtAndamento) 
+FROM tb_Processo
+WHERE YEAR(DtEncerramento) = 2013
+ORDER BY nroProcesso 
+
+SELECT dtEntrada, Count(*) AS Quantidade FROM tb_Processos GROUP BY dtEntrada WHERE Quantidade > 5
+
+SELECT RIGHT('000000000000' + convert(varchar(max), nroProcesso), 12)
